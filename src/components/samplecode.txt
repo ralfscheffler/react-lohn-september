@@ -1,0 +1,90 @@
+const SearchForm = () => {
+  const [keywords, setKeywords] = useState('')
+  const [fetchedData, setFetchedData] = useState('')
+
+  async function fetchData() {
+    const { data } = await axios.post(
+      'http://127.0.0.1:8000/api/posts/',
+      keywords
+    )
+    setFetchedData(data)
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    fetchData()
+  }
+
+  loop over inputs
+
+  mport React, { useState, useEffect }  from 'react'
+import { Button, View, StyleSheet, TextInput } from 'react-native'
+
+export default function Teste(){
+
+    /// VIRÁ DA API - sintaxe à definir
+    var ItensMenu = [
+        {title: 'Nome', type: 'input', id: 'id1'},
+        {title: 'CPF', type: 'number', id: 'id2'},
+        {title: 'Data de Nascimento', type: 'date', id: 'id3'},
+        {title: 'Data de Cadastro', type: 'date', id: 'id4'},
+    ]
+    /// VIRÁ DA API
+
+    const [Itens, setItens] = useState([]);
+
+    let ItensForm = []
+    
+    ItensMenu.map((item) => {
+        ItensForm = [...ItensForm, item]
+    })
+
+    useEffect(() => { setItens(ItensForm) }, [])
+
+    return(
+        <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+            { 
+            Itens.map((item, index) => {
+                return(
+                    <View key={'view_'+index} style={{flex:1, justifyContent: 'center', alignItems: 'center', width: '100%'}}>
+                        <TextInput 
+                            value={Itens[index].id} 
+                            style={Css.input} 
+                            onChangeText={ (value) => {
+                                Itens[index].id = value
+                                setItens([...Itens], Itens);                                    
+                            } }
+                        />
+                    </View>
+                )
+            })
+            }
+            <Button title='press' onPress={ (e) => { console.log(Itens) } } />
+            {/* <RNDateTimePicker
+                testID="dateTimePicker"
+                value={parseISO(date)}
+                mode='date'
+                is24Hour={true}
+                display="default"
+                onChange={onChange}
+            /> */}
+        </View>
+    )
+}
+
+const Css = StyleSheet.create({
+    input:{
+        borderWidth: 2,
+        width: '100%',
+        padding: 5,
+        fontSize: 20,
+        marginTop: 10,
+        marginBottom: 10
+    }
+})
+
+DateTime Manipulation aus Sandbox
