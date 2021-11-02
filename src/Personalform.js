@@ -13,11 +13,9 @@ import PersonalBody from "./components/PersonalBody";
 import PersonalZuschlag from "./components/PersonalZuschlag";
 import PersonalLohn from "./components/PersonalLohn";
 import PersonalButtons from "./components/PersonalButtons";
+import axios from "axios";
 
-const handleDelete = (e) => {
-  e.preventDefault();
-  console.log("Delete wurde geklickt.");
-};
+
 
 var i = 0;
 const initialValue = {
@@ -104,6 +102,12 @@ const Personalform = () => {
       setPersonal(data[i]);
       updatePerson(data[i]);
     }
+  };
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    const data = await axios.get(`http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Plan?$expand=stamm_id&$filter=stamm_id EQ ${personal.id}`)
+    console.log("Delete wurde geklickt.");
+    console.log(data)
   };
   const handleEdit = (e) => {
     e.preventDefault();
