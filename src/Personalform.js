@@ -101,6 +101,16 @@ const Personalform = () => {
       updatePerson(data[i]);
     }
   };
+  const handleNewRec = async (e) => {
+    data.push(initialValue);
+    //setPersonal(data[data.length]);
+    //setPersonal(initialValue);
+    //setPersonal(data[data.length] - 1);
+    updatePerson(data[data.length - 1]);
+    setPersonal(data[data.length - 1]);
+    alert("new Record");
+    setReadonly(false);
+  };
   const handleDelete = async (e) => {
     e.preventDefault();
     const result = await axios.get(
@@ -115,17 +125,20 @@ const Personalform = () => {
           alert(`löschen fehlgeschlagen mit status ${res.status}`);
         }
       });
-    console.log("Delete wurde geklickt.");
-    alert(personal.id);
-    console.log(personal.id);
+    // console.log("Delete wurde geklickt.");
+    // alert(personal.id);
+    // console.log(personal.id);
     const res = await axios.delete(
       `http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Mitarbeiter(${personal.id})`
     );
     alert(res.status);
     //Das Arrayelement muss noch entfernt werden.
-    data.splice(i);
-    setPersonal(data[i--]);
+    data.splice(i, 1);
+    //console.log(data);
+
+    setPersonal(data[i]);
   };
+
   const handleEdit = (e) => {
     e.preventDefault();
     setReadonly(false);
@@ -220,6 +233,7 @@ const Personalform = () => {
           data={data}
           handleNext={handleNext}
           handlePrev={handlePrev}
+          handleNewRec={handleNewRec}
           handleEdit={handleEdit}
           handleDelete={handleDelete}
           handleSubmit={handleSubmit}

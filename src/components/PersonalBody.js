@@ -1,22 +1,21 @@
 const PersonalBody = ({ personal, handleChange, readOnly }) => {
+  console.log(personal);
   return (
     <div className="container-md">
       <form className="row g-3">
         <div className="col-sm-6">
-          
-            <label htmlFor="Name" className="form-label">
-              Name
-            </label>
-            <input
-              type="string"
-              className="form-control"
-              id="Name"
-              name="Name"
-              value={personal.Name}
-              onChange={handleChange}
-              readOnly={readOnly}
-            />
-          
+          <label htmlFor="Name" className="form-label">
+            Name
+          </label>
+          <input
+            type="string"
+            className="form-control"
+            id="Name"
+            name="Name"
+            value={personal.Name}
+            onChange={handleChange}
+            readOnly={readOnly}
+          />
         </div>
         <div className="col-sm-6">
           <label htmlFor="Vorname" className="form-label">

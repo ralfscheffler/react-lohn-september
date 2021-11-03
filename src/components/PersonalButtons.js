@@ -4,6 +4,7 @@ const PersonalButtens = ({
   data,
   handleNext,
   handlePrev,
+  handleNewRec,
   handleEdit,
   handleDelete,
   handleSubmit,
@@ -12,42 +13,44 @@ const PersonalButtens = ({
     <div className="container-md d-flex justify-content-between">
       <button
         type="button"
-        className="btn btn-primary btn-lg col-2"
+        className="btn btn-primary btn-lg col-1"
         onClick={handleNext}
-        disabled={i >= data.length - 1}
-      >
+        disabled={i >= data.length - 1}>
         Vor
       </button>
       <button
         type="button"
-        className="btn btn-primary btn-lg col-2"
+        className="btn btn-primary btn-lg col-1"
         onClick={handlePrev}
-        disabled={i === 0}
-      >
+        disabled={i === 0}>
         Zurück
       </button>
       <button
         type="button"
-        className="btn btn-primary btn-lg col-2"
+        className="btn btn-primary btn-lg col-1"
         onClick={handleEdit}
-        disabled={enabled}
-      >
+        disabled={enabled}>
         Edit
       </button>
       <button
         type="button"
-        className="btn btn-primary btn-lg col-2"
+        className="btn btn-primary btn-lg col-1"
+        onClick={handleNewRec}
+        disabled={enabled}>
+        Neu
+      </button>
+      <button
+        type="button"
+        className="btn btn-primary btn-lg col-1"
         onClick={handleDelete}
-        disabled={enabled}
-      >
+        disabled={enabled}>
         Delete
       </button>
       <button
         type="button"
-        className="btn btn-primary btn-lg col-2"
+        className="btn btn-primary btn-lg col-1"
         onClick={handleSubmit}
-        disabled={!enabled}
-      >
+        disabled={!enabled}>
         Save
       </button>
     </div>
