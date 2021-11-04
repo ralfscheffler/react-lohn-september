@@ -46,15 +46,15 @@ const PersonalBody = ({ personal, handleChange, readOnly }) => {
           />
         </div>
         <div className="col-sm-6">
-          <label htmlFor="Plz" className="form-label">
+          <label htmlFor="PLZ" className="form-label">
             Plz
           </label>
           <input
             type="string"
             className="form-control"
-            id="Plz"
-            name="Plz"
-            value={personal.PLZ}
+            id="PLZ"
+            name="PLZ"
+            value={personal.plz}
             onChange={handleChange}
             readOnly={readOnly}
           />
@@ -82,7 +82,7 @@ const PersonalBody = ({ personal, handleChange, readOnly }) => {
             className="form-control"
             id="Email"
             name="Email"
-            value=""
+            value={personal.Email}
             onChange={handleChange}
             readOnly={readOnly}
           />
@@ -96,7 +96,7 @@ const PersonalBody = ({ personal, handleChange, readOnly }) => {
             className="form-control"
             id="Handy"
             name="Handy"
-            value=""
+            value={personal.Handy}
             onChange={handleChange}
             readOnly={readOnly}
           />

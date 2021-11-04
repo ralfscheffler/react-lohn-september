@@ -1,8 +1,6 @@
-
-
 const handleValueChange = ({ target: { value } }) => {
   console.log(value);
-}
+};
 
 const PersonalLohn = ({ personal, handleLohnChange, readOnly }) => {
   return (
@@ -15,7 +13,7 @@ const PersonalLohn = ({ personal, handleLohnChange, readOnly }) => {
 
           <input
             className="form-control"
-            type="text"
+            type="number"
             name="Festlohn"
             id="Festlohn"
             onChange={handleLohnChange}
@@ -30,12 +28,14 @@ const PersonalLohn = ({ personal, handleLohnChange, readOnly }) => {
           </label>
           <input
             className="form-control"
-            type="text"
+            type="number"
             name="Stundenlohn"
             id="Stundenlohn"
             onChange={handleLohnChange}
             //value={personal.fkLohnartID?.Stundenlohn}
-            value={Number.parseFloat(personal.fkLohnartID?.Stundenlohn).toFixed(2)}
+            value={Number.parseFloat(personal.fkLohnartID?.Stundenlohn).toFixed(
+              2
+            )}
             readOnly={readOnly}
           />
         </div>
@@ -52,8 +52,6 @@ const PersonalLohn = ({ personal, handleLohnChange, readOnly }) => {
             value={personal.fkLohnartID?.MaxStunden}
             readOnly={readOnly}
           />
-          
-          
         </div>
         <div className="col-sm-6">
           <label htmlFor="MaxLohn" className="form-label">
@@ -68,8 +66,6 @@ const PersonalLohn = ({ personal, handleLohnChange, readOnly }) => {
             value={Number.parseFloat(personal.fkLohnartID?.MaxLohn).toFixed(2)}
             readOnly={readOnly}
           />
-          
-          
         </div>
       </form>
     </div>

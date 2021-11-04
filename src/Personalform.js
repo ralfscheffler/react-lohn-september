@@ -22,6 +22,8 @@ const initialValue = {
   Strasse: "",
   PLZ: "",
   Ort: "",
+  Email: "",
+  Handy: "",
   Staatsangehoerigkeit: "",
   Geburtsdatum: "",
   Betrieb: "",
@@ -36,6 +38,8 @@ const Personalform = () => {
     Strasse: "",
     PLZ: "",
     Ort: "",
+    Email: "",
+    Handy: "",
     Staatsangehoerigkeit: "",
     Geburtsdatum: "",
     Betrieb: "",
@@ -48,7 +52,7 @@ const Personalform = () => {
   const [enabled, setEnabled] = useState(false);
   const [edit, setEdit] = useState(false);
   const [prevPersonalData, setPrevPersonalData] = useState("");
-
+  const [action, setAction] = useState(1); //action = edit
   const { firma } = useContext(LocationContext);
   const { updatePerson } = useContext(PersonalContext);
   const { updatePersonalData } = useContext(PersonalDataContext);
@@ -102,7 +106,7 @@ const Personalform = () => {
     }
   };
   const handleNewRec = async (e) => {
-    data.push(initialValue);
+    data.push(initialValue); //neues leeres Array ans Ende
     //setPersonal(data[data.length]);
     //setPersonal(initialValue);
     //setPersonal(data[data.length] - 1);
@@ -110,7 +114,11 @@ const Personalform = () => {
     setPersonal(data[data.length - 1]);
     alert("new Record");
     setReadonly(false);
+    setEnabled(true);
+    setEdit(true);
+    setAction(0);
   };
+
   const handleDelete = async (e) => {
     e.preventDefault();
     const result = await axios.get(
@@ -185,20 +193,24 @@ const Personalform = () => {
     setEnabled(false);
     setReadonly(true);
 
-    const patchData = diff(prevPersonalData, personal);
+    if (action === 1) {
+      const patchData = diff(prevPersonalData, personal);
 
-    if (Object.keys(patchData).length !== 0) {
-      const res = await Savetodb(
-        "http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Mitarbeiter(" +
-          personal.id +
-          ")",
-        patchData,
-        "patch"
-      );
-      console.log(res);
+      if (Object.keys(patchData).length !== 0) {
+        const res = await Savetodb(
+          "http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Mitarbeiter(" +
+            personal.id +
+            ")",
+          patchData,
+          "patch"
+        );
+        console.log(res);
 
-      data[i] = personal;
-      setPersonal(data[i]);
+        data[i] = personal;
+        setPersonal(data[i]);
+      }
+    } else {
+      console.log(personal);
     }
   };
   console.log("render");
