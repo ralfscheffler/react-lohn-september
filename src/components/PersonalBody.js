@@ -120,7 +120,7 @@ const PersonalBody = ({ personal, handleChange, readOnly }) => {
             Geburtsdatum
           </label>
           <input
-            type="string"
+            type="date"
             className="form-control"
             id="Geburtsdatum"
             name="Geburtsdatum"

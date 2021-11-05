@@ -22,8 +22,8 @@ const initialValue = {
   Strasse: "",
   PLZ: "",
   Ort: "",
-  Email: "",
   Handy: "",
+  Email: "",
   Staatsangehoerigkeit: "",
   Geburtsdatum: "",
   Betrieb: "",
@@ -38,8 +38,8 @@ const Personalform = () => {
     Strasse: "",
     PLZ: "",
     Ort: "",
-    Email: "",
     Handy: "",
+    Email: "",
     Staatsangehoerigkeit: "",
     Geburtsdatum: "",
     Betrieb: "",
@@ -211,6 +211,11 @@ const Personalform = () => {
       }
     } else {
       console.log(personal);
+      const result = await axios.post(
+        "http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Mitarbeiter",
+        personal
+      );
+      console.log(result);
     }
   };
   console.log("render");
