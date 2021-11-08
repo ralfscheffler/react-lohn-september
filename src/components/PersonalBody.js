@@ -54,7 +54,7 @@ const PersonalBody = ({ personal, handleChange, readOnly }) => {
             className="form-control"
             id="PLZ"
             name="PLZ"
-            value={personal.plz}
+            value={personal.PLZ}
             onChange={handleChange}
             readOnly={readOnly}
           />
@@ -78,7 +78,7 @@ const PersonalBody = ({ personal, handleChange, readOnly }) => {
             Email
           </label>
           <input
-            type="string"
+            type="email"
             className="form-control"
             id="Email"
             name="Email"

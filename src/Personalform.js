@@ -112,7 +112,7 @@ const Personalform = () => {
     //setPersonal(data[data.length] - 1);
     updatePerson(data[data.length - 1]);
     setPersonal(data[data.length - 1]);
-    alert("new Record");
+
     setReadonly(false);
     setEnabled(true);
     setEdit(true);
@@ -204,18 +204,23 @@ const Personalform = () => {
           patchData,
           "patch"
         );
-        console.log(res);
 
-        data[i] = personal;
-        setPersonal(data[i]);
+        if (res.status === 204) {
+          data[i] = personal;
+          setPersonal(data[i]);
+        }
       }
     } else {
-      console.log(personal);
       const result = await axios.post(
         "http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Mitarbeiter",
         personal
       );
-      console.log(result);
+      if (result.status === 201) {
+        i = data.length - 1;
+        data[i] = personal;
+        setPersonal(data[i]);
+        setAction(1);
+      }
     }
   };
   console.log("render");
