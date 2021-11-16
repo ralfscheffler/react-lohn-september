@@ -40,16 +40,18 @@ const PersonalLohn = ({ personal, handleLohnChange, readOnly }) => {
           />
         </div>
         <div className="col-sm-6">
-          <label htmlFor="Maxstunden" className="form-label">
+          <label htmlFor="MaxStunden" className="form-label">
             Maximale Stunden
           </label>
           <input
             className="form-control"
             type="number"
-            name="Maxstunden"
-            id="Maxstunden"
+            name="MaxStunden"
+            id="MaxStunden"
             onChange={handleLohnChange}
-            value={personal.fkLohnartID?.MaxStunden}
+            value={Number.parseFloat(personal.fkLohnartID?.MaxStunden).toFixed(
+              2
+            )}
             readOnly={readOnly}
           />
         </div>

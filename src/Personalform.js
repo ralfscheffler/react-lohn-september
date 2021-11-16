@@ -51,6 +51,7 @@ const Personalform = () => {
   const [readOnly, setReadonly] = useState(true);
   const [enabled, setEnabled] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [cancel, setCancel] = useState(true);
   const [prevPersonalData, setPrevPersonalData] = useState("");
   const [action, setAction] = useState(1); //action = edit
   const { firma } = useContext(LocationContext);
@@ -152,6 +153,7 @@ const Personalform = () => {
     setReadonly(false);
     setEnabled(true);
     setEdit(true);
+    setCancel(!cancel);
     setPrevPersonalData(personal);
   };
 
@@ -205,7 +207,7 @@ const Personalform = () => {
           "patch"
         );
 
-        if (res.status === 204) {
+        if (res.status === 200) {
           data[i] = personal;
           setPersonal(data[i]);
         }
@@ -222,6 +224,12 @@ const Personalform = () => {
         setAction(1);
       }
     }
+  };
+
+  const handleCancel = () => {
+    setEdit(false);
+    setEnabled(false);
+    setCancel(!cancel);
   };
   console.log("render");
   return (
@@ -259,6 +267,8 @@ const Personalform = () => {
           handleEdit={handleEdit}
           handleDelete={handleDelete}
           handleSubmit={handleSubmit}
+          handleCancel={handleCancel}
+          cancel={cancel}
         />
       )}
     </>

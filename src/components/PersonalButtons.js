@@ -8,6 +8,8 @@ const PersonalButtens = ({
   handleEdit,
   handleDelete,
   handleSubmit,
+  handleCancel,
+  cancel,
 }) => {
   return (
     <div className="container-md d-flex justify-content-between">
@@ -52,6 +54,13 @@ const PersonalButtens = ({
         onClick={handleSubmit}
         disabled={!enabled}>
         Save
+      </button>
+      <button
+        type="button"
+        className="btn btn-danger btn-lg col-1"
+        onClick={handleCancel}
+        disabled={cancel}>
+        Abbruch
       </button>
     </div>
   );
