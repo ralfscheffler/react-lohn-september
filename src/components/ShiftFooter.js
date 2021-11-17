@@ -8,8 +8,13 @@ import GetNachMitternacht from "./GetNachMitternacht";
 //import { useEffect } from "react";
 import IsSonntag from "./IsSonntag";
 import SonntagsZuschlag from "./SonntagsZuschlag";
-import '../css/ShiftFooter.css'
-import { GetGesamtlohn,GetGrundlohn, GetNachtzuschlag1, GetNachtzuschlag2 } from "./LohnHelper";
+import "../css/ShiftFooter.css";
+import {
+  GetGesamtlohn,
+  GetGrundlohn,
+  GetNachtzuschlag1,
+  GetNachtzuschlag2,
+} from "./LohnHelper";
 
 const ShiftFooter = ({ shift, person }) => {
   //const [stunden, setStunden] = useState();
@@ -23,6 +28,7 @@ const ShiftFooter = ({ shift, person }) => {
     nachtSchicht1: 0,
     nachtSchicht2: 0,
     sonntagsSchicht: 0,
+    feiertagSchicht: 0,
   };
   let tempLohn = {
     grundLohn: 0,
@@ -38,10 +44,10 @@ const ShiftFooter = ({ shift, person }) => {
       parseISO(item.starttime),
       parseISO(item.endtime)
     );
+
     if (IsSonntag(item.starttime, item.endtime)) {
       tempStd.sonntagsSchicht += SonntagsZuschlag(item.starttime, item.endtime);
     }
-    
 
     var istTagschicht = IsDayShift(
       parseISO(item.starttime),
@@ -63,24 +69,36 @@ const ShiftFooter = ({ shift, person }) => {
   });
 
   //tempLohn.grundLohn = tempStd.gesamtStunden * person?.fkLohnartID?.Stundenlohn;
-  tempLohn.grundLohn = GetGrundlohn(tempStd.gesamtStunden , person?.fkLohnartID?.Stundenlohn);
+  tempLohn.grundLohn = GetGrundlohn(
+    tempStd.gesamtStunden,
+    person?.fkLohnartID?.Stundenlohn
+  );
   // getGrundlohn function
   //tempLohn.nachtschichtZuschlag =
   //  tempStd.nachtSchicht1 * (person?.fkLohnartID?.Stundenlohn / 4);
-  tempLohn.nachtschichtZuschlag = GetNachtzuschlag1(tempStd.nachtSchicht1 , person?.fkLohnartID?.Stundenlohn )
-    ;
-    // getNacht1Zuschlag function
+  tempLohn.nachtschichtZuschlag = GetNachtzuschlag1(
+    tempStd.nachtSchicht1,
+    person?.fkLohnartID?.Stundenlohn
+  );
+  // getNacht1Zuschlag function
   //tempLohn.afterMidnightZuschlag =
   //  tempStd.nachtSchicht2 * (person?.fkLohnartID?.Stundenlohn * 0, 4);
-  tempLohn.afterMidnightZuschlag = GetNachtzuschlag2(tempStd.nachtSchicht2, person?.fkLohnartID?.Stundenlohn)
-    ;
-// getNacht2Zuschlag - function
-  tempLohn.gesamtLohn = GetGesamtlohn(tempLohn.sonntagsZuschlag,tempLohn.grundLohn,tempLohn.nachtschichtZuschlag,tempLohn.afterMidnightZuschlag)
-    //tempLohn.sonntagsZuschlag +
-    //tempLohn.grundLohn +
-    //tempLohn.nachtschichtZuschlag +
-    //tempLohn.afterMidnightZuschlag;
-// getGesamtLohn function
+  tempLohn.afterMidnightZuschlag = GetNachtzuschlag2(
+    tempStd.nachtSchicht2,
+    person?.fkLohnartID?.Stundenlohn
+  );
+  // getNacht2Zuschlag - function
+  tempLohn.gesamtLohn = GetGesamtlohn(
+    tempLohn.sonntagsZuschlag,
+    tempLohn.grundLohn,
+    tempLohn.nachtschichtZuschlag,
+    tempLohn.afterMidnightZuschlag
+  );
+  //tempLohn.sonntagsZuschlag +
+  //tempLohn.grundLohn +
+  //tempLohn.nachtschichtZuschlag +
+  //tempLohn.afterMidnightZuschlag;
+  // getGesamtLohn function
   //console.log(tempLohn.gesamtLohn)
 
   //  useEffect(() => {

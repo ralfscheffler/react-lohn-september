@@ -64,11 +64,8 @@ const Personalform = () => {
     firma +
     "'" +
     ")";
-  //console.log(url);
 
   const data = useFetch(url);
-
-  //console.log(data);
 
   useEffect(() => {
     data && setPersonal(data[i]); //(i = 0)
@@ -108,15 +105,16 @@ const Personalform = () => {
   };
   const handleNewRec = async (e) => {
     data.push(initialValue); //neues leeres Array ans Ende
-    //setPersonal(data[data.length]);
-    //setPersonal(initialValue);
-    //setPersonal(data[data.length] - 1);
+
     updatePerson(data[data.length - 1]);
     setPersonal(data[data.length - 1]);
 
-    setReadonly(false);
+    setPrevPersonalData(personal); //der aktuelle Datensatz wird gesichert
+
+    setReadonly(!readOnly);
     setEnabled(true);
     setEdit(true);
+    setCancel(!cancel);
     setAction(0);
   };
 
@@ -150,11 +148,11 @@ const Personalform = () => {
 
   const handleEdit = (e) => {
     e.preventDefault();
-    setReadonly(false);
+    setReadonly(!readOnly);
     setEnabled(true);
     setEdit(true);
     setCancel(!cancel);
-    setPrevPersonalData(personal);
+    setPrevPersonalData(personal); //aktuellen Datensatz sichern
   };
 
   function handleChange(evt) {
@@ -227,8 +225,15 @@ const Personalform = () => {
   };
 
   const handleCancel = () => {
+    if (action === 1) {
+      // setPersonal(prevPersonalData);
+      //} else {
+      data.pop();
+    }
+    setPersonal(prevPersonalData); //zurück zum letzten aktuellen Datensatz
     setEdit(false);
     setEnabled(false);
+    setReadonly(!readOnly);
     setCancel(!cancel);
   };
   console.log("render");
