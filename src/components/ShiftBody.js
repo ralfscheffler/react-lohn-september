@@ -1,5 +1,5 @@
 //mport { Button, Form, Col, Container, ButtonToolbar } from "react-bootstrap";
-import { useForm } from "react-hook-form";
+//import { useForm } from "react-hook-form";
 import { useState, useEffect, useMemo } from "react";
 import ShiftFooter from "./ShiftFooter";
 import UpdateShiftPlan from "./UpdateShiftPlan";
@@ -20,7 +20,7 @@ const ShiftBody = ({ data, person }) => {
   let shiftForm = [];
 
   data.map((item) => {
-    shiftForm = [...shiftForm, item];
+    shiftForm = [...shiftForm, item]; //object in array umwandeln
   });
 
   useEffect(() => {
@@ -82,16 +82,14 @@ const ShiftBody = ({ data, person }) => {
                 <button
                   type="button"
                   className="btn btn-sm btn-danger"
-                  id="btnReset"
-                >
+                  id="btnReset">
                   <i className="bi bi-x-circle"></i> Abort
                 </button>
                 <button
                   type="button"
                   className="btn btn-sm btn-success"
                   id="btnSend"
-                  onClick={handleDateTimeClick}
-                >
+                  onClick={handleDateTimeClick}>
                   <i className="bi bi-envelope"></i> Save
                 </button>
               </div>
