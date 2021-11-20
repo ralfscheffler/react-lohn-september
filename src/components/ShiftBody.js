@@ -3,6 +3,8 @@
 import { useState, useEffect, useMemo } from "react";
 import ShiftFooter from "./ShiftFooter";
 import UpdateShiftPlan from "./UpdateShiftPlan";
+import diff from './diff'
+import copyArrObjByValue from "./copyArrObjByValue";
 import "../css/ShiftFooter.css";
 
 const getDayName = (datestr, locale) => {
@@ -17,6 +19,8 @@ const getTime = (datestr, locale) => {
 
 const ShiftBody = ({ data, person }) => {
   const [shift, setShift] = useState([]);
+  
+  const oldShift = useMemo(()=>{return copyArrObjByValue(data)},[])
   let shiftForm = [];
 
   data.map((item) => {
@@ -26,7 +30,7 @@ const ShiftBody = ({ data, person }) => {
   useEffect(() => {
     setShift(shiftForm);
   }, []);
-  console.log(shift);
+  
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -35,6 +39,8 @@ const ShiftBody = ({ data, person }) => {
   };
 
   const handleDateTimeClick = () => {
+    
+    console.log(oldShift)
     UpdateShiftPlan(shift);
     console.log(shift);
   };
