@@ -5,6 +5,7 @@ import ShiftFooter from "./ShiftFooter";
 import UpdateShiftPlan from "./UpdateShiftPlan";
 import diff from './diff'
 import copyArrObjByValue from "./copyArrObjByValue";
+import retrieveChanges from "./retrieveChanges";
 import "../css/ShiftFooter.css";
 
 const getDayName = (datestr, locale) => {
@@ -39,11 +40,17 @@ const ShiftBody = ({ data, person }) => {
   };
 
   const handleDateTimeClick = () => {
+    const changes = retrieveChanges(shift, oldShift)
     
-    console.log(oldShift)
-    UpdateShiftPlan(shift);
-    console.log(shift);
+    if (changes.length > 0){
+      const returnCode = UpdateShiftPlan(changes);
+      alert(returnCode)
+    }
   };
+
+  const handleReset = ()=>{
+    setShift(oldShift)
+  }
   return (
     <div className="wrapper">
       <div className="container-md">
@@ -88,7 +95,8 @@ const ShiftBody = ({ data, person }) => {
                 <button
                   type="button"
                   className="btn btn-sm btn-danger"
-                  id="btnReset">
+                  id="btnReset"
+                  onClick={handleReset}>
                   <i className="bi bi-x-circle"></i> Abort
                 </button>
                 <button
