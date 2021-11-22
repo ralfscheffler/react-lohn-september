@@ -14,6 +14,7 @@ import {
   GetGrundlohn,
   GetNachtzuschlag1,
   GetNachtzuschlag2,
+  GetSonntagszuschlag,
 } from "./LohnHelper";
 
 const ShiftFooter = ({ shift, person }) => {
@@ -85,6 +86,11 @@ const ShiftFooter = ({ shift, person }) => {
   //  tempStd.nachtSchicht2 * (person?.fkLohnartID?.Stundenlohn * 0, 4);
   tempLohn.afterMidnightZuschlag = GetNachtzuschlag2(
     tempStd.nachtSchicht2,
+    person?.fkLohnartID?.Stundenlohn
+  );
+
+  tempLohn.sonntagsZuschlag = GetSonntagszuschlag(
+    tempStd.sonntagsSchicht,
     person?.fkLohnartID?.Stundenlohn
   );
   // getNacht2Zuschlag - function

@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import ShiftFooter from "./ShiftFooter";
 import UpdateShiftPlan from "./UpdateShiftPlan";
-import diff from './diff'
+import diff from "./diff";
 import copyArrObjByValue from "./copyArrObjByValue";
 import retrieveChanges from "./retrieveChanges";
 import "../css/ShiftFooter.css";
@@ -20,8 +20,10 @@ const getTime = (datestr, locale) => {
 
 const ShiftBody = ({ data, person }) => {
   const [shift, setShift] = useState([]);
-  
-  const oldShift = useMemo(()=>{return copyArrObjByValue(data)},[])
+
+  const oldShift = useMemo(() => {
+    return copyArrObjByValue(data);
+  }, []);
   let shiftForm = [];
 
   data.map((item) => {
@@ -31,7 +33,6 @@ const ShiftBody = ({ data, person }) => {
   useEffect(() => {
     setShift(shiftForm);
   }, []);
-  
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -40,17 +41,16 @@ const ShiftBody = ({ data, person }) => {
   };
 
   const handleDateTimeClick = () => {
-    const changes = retrieveChanges(shift, oldShift)
-    
-    if (changes.length > 0){
-      const returnCode = UpdateShiftPlan(changes);
-      alert(returnCode)
+    const changes = retrieveChanges(shift, oldShift);
+
+    if (changes.length > 0) {
+      UpdateShiftPlan(changes);
     }
   };
 
-  const handleReset = ()=>{
-    setShift(oldShift)
-  }
+  const handleReset = () => {
+    setShift(oldShift);
+  };
   return (
     <div className="wrapper">
       <div className="container-md">
