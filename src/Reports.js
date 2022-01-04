@@ -1,10 +1,11 @@
 //import ReportCheckbox from "./components/ReportCheckbox";
 import { useReducer } from "react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import ReportButtons from "./components/ReportButtons";
 import { PersonalDataContext } from "./contexts/PersonalDataContext";
-import useFetch
- from "./components/useFetch";
+import useFetch from "./components/useFetch";
+import ReportResult from "./components/ReportResult";
+
 function reducer(state, { type, payload }) {
   switch (type) {
     case "anfang":
@@ -21,13 +22,15 @@ const Reports = () => {
   const urlShift =
     "http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Plan?$expand=stamm_id/fkLohnartID";
 
-  const shiftData=useFetch(urlShift)
+  const shiftData = useFetch(urlShift);
 
   const initialState = {
     start: new Date().toISOString().slice(0, 10),
     end: new Date().toISOString().slice(0, 10),
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [isTimeSelect, setTimeSelect] = useState(false);
+  //let isTimeSelect = true;
   return (
     <div className="wrapper">
       <div className="container-md">
@@ -70,8 +73,10 @@ const Reports = () => {
           end={state.end}
           personalData={personalData}
           shiftData={shiftData}
+          setTimeSelect={setTimeSelect}
         />
       </div>
+      <ReportResult timeselect={isTimeSelect} />
     </div>
   );
 };
