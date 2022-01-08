@@ -1,10 +1,20 @@
 //import ReportCheckbox from "./components/ReportCheckbox";
 import { useReducer } from "react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import ReportButtons from "./components/ReportButtons";
 import { PersonalDataContext } from "./contexts/PersonalDataContext";
-import useFetch
- from "./components/useFetch";
+import useFetch from "./components/useFetch";
+import ReportZeitraum from "./components/ReportZeitraum";
+import SummenReport from "./components/SummenReport";
+
+function Summenliste(props) {
+  return <h1>Summenliste</h1>;
+}
+
+function Einzelnachweis(props) {
+  return <h1>Einzelnachweis</h1>;
+}
+
 function reducer(state, { type, payload }) {
   switch (type) {
     case "anfang":
@@ -18,59 +28,37 @@ function reducer(state, { type, payload }) {
 
 const Reports = () => {
   const { personalData } = useContext(PersonalDataContext);
+  const [isSummenReport, setSummenReport] = useState(2);
+
   const urlShift =
     "http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Plan?$expand=stamm_id/fkLohnartID";
 
-  const shiftData=useFetch(urlShift)
+  const shiftData = useFetch(urlShift);
 
   const initialState = {
     start: new Date().toISOString().slice(0, 10),
     end: new Date().toISOString().slice(0, 10),
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  console.log(state);
+
   return (
     <div className="wrapper">
       <div className="container-md">
-        <form className="row g-3">
-          <div className="col-sm-6">
-            <label htmlFor="starttime" className="form-label">
-              Beginn:
-            </label>
-            <input
-              type="date"
-              className="form-control"
-              id="starttime"
-              name="starttime"
-              value={state.start}
-              onChange={(event) =>
-                dispatch({ type: "anfang", payload: event.target.value })
-              }
-            />
-          </div>
-
-          <div className="col-sm-6 ">
-            <label htmlFor="endtime" className="form-label">
-              Ende:
-            </label>
-            <input
-              type="date"
-              className="form-control"
-              id="endtime"
-              name="endtime"
-              value={state.end}
-              onChange={(event) =>
-                dispatch({ type: "ende", payload: event.target.value })
-              }
-            />
-          </div>
-        </form>
-
-        <ReportButtons
-          start={state.start}
-          end={state.end}
-          personalData={personalData}
-          shiftData={shiftData}
-        />
+        <ReportZeitraum state={state} dispatch={dispatch} />
+        <ReportButtons setSummenReport={setSummenReport} />
+        {/* //   start={state.start}
+        //   end={state.end}
+        //   personalData={personalData}
+        //   shiftData={shiftData}
+        // /> */}
+        {(() => {
+          if (isSummenReport === 1) {
+            return <Summenliste />;
+          } else if (isSummenReport === 0) {
+            return <Einzelnachweis />;
+          }
+        })()}
       </div>
     </div>
   );
