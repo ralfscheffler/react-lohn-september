@@ -1,8 +1,8 @@
-import { useRef, useState, useEffect } from "react";
+//import { useRef, useState, useEffect } from "react";
 
 import manipulatePersonalShiftData from "./manipulatePersonalShiftData";
 
-const SummenReport = (start, end, personalData, shiftData) => {
+const SummenReport = ({ personalData, shiftData }) => {
   let personalShiftData = [];
 
   if (personalData && shiftData) {
@@ -15,11 +15,25 @@ const SummenReport = (start, end, personalData, shiftData) => {
         item.schicht = result;
         personalShiftData.push(item);
       }
-      return null;
     });
   }
   personalShiftData = manipulatePersonalShiftData(personalShiftData, null);
-  return console.log(personalShiftData);
+
+  return (
+    <div className="container">
+      {personalShiftData.map((person) => {
+        //<div key={person.id}>
+        {
+          /* Name:
+          {person.Name} {person.Betrieb}
+          {console.log(person)} */
+        }
+
+        //</div>;
+      })}
+    </div>
+  );
+  //console.log(personalShiftData);
 };
 
 export default SummenReport;

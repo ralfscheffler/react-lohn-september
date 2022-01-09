@@ -7,9 +7,9 @@ import useFetch from "./components/useFetch";
 import ReportZeitraum from "./components/ReportZeitraum";
 import SummenReport from "./components/SummenReport";
 
-function Summenliste(props) {
-  return <h1>Summenliste</h1>;
-}
+// function SummenReport(props) {
+//   return <h1>Summenliste</h1>;
+// }
 
 function Einzelnachweis(props) {
   return <h1>Einzelnachweis</h1>;
@@ -47,18 +47,21 @@ const Reports = () => {
       <div className="container-md">
         <ReportZeitraum state={state} dispatch={dispatch} />
         <ReportButtons setSummenReport={setSummenReport} />
-        {/* //   start={state.start}
-        //   end={state.end}
-        //   personalData={personalData}
-        //   shiftData={shiftData}
-        // /> */}
-        {(() => {
+
+        {/* {(() => {
           if (isSummenReport === 1) {
-            return <Summenliste />;
+            return (
+              <SummenReport personalData={personalData} shiftData={shiftData} />
+            );
           } else if (isSummenReport === 0) {
             return <Einzelnachweis />;
           }
-        })()}
+        })()} */}
+        {isSummenReport === 1 ? (
+          <Einzelnachweis />
+        ) : (
+          <SummenReport personalData={personalData} shiftData={shiftData} />
+        )}
       </div>
     </div>
   );

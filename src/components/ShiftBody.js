@@ -1,6 +1,6 @@
 //mport { Button, Form, Col, Container, ButtonToolbar } from "react-bootstrap";
-import { useForm } from "react-hook-form";
-import { useState, useEffect, useMemo } from "react";
+//import { useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
 import ShiftFooter from "./ShiftFooter";
 import UpdateShiftPlan from "./UpdateShiftPlan";
 import "../css/ShiftFooter.css";
@@ -10,17 +10,17 @@ const getDayName = (datestr, locale) => {
   return date.toLocaleDateString(locale, { weekday: "long" });
 };
 
-const getTime = (datestr, locale) => {
-  var date = new Date(datestr);
-  return date.toLocaleTimeString(locale);
-};
+// const getTime = (datestr, locale) => {
+//   var date = new Date(datestr);
+//   return date.toLocaleTimeString(locale);
+// };
 
 const ShiftBody = ({ data, person }) => {
   const [shift, setShift] = useState([]);
   let shiftForm = [];
 
   data.map((item) => {
-    shiftForm = [...shiftForm, item];
+    return (shiftForm = [...shiftForm, item]);
   });
 
   useEffect(() => {
@@ -28,11 +28,11 @@ const ShiftBody = ({ data, person }) => {
   }, []);
   console.log(shift);
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setShift({ ...shift, [e.target.name]: value });
-    //console.log(shift);
-  };
+  // const handleChange = (e) => {
+  //   const value = e.target.value;
+  //   setShift({ ...shift, [e.target.name]: value });
+  //   //console.log(shift);
+  // };
 
   const handleDateTimeClick = () => {
     UpdateShiftPlan(shift);

@@ -1,11 +1,8 @@
-import { findAllByTestId } from "@testing-library/react";
-import SummenReport from "./SummenReport";
+// const handleEinzel = (start, end) => {};
 
-const handleEinzel = (start, end) => {};
-
-const handleSumme = (start, end, personalData, shiftData) => {
-  SummenReport(start, end, personalData, shiftData);
-};
+// const handleSumme = (start, end, personalData, shiftData) => {
+//   SummenReport(start, end, personalData, shiftData);
+// };
 
 //const ReportButtons = ({ start, end, personalData, shiftData }) => {
 const ReportButtons = ({ setSummenReport }) => {
