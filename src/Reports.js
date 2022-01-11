@@ -30,17 +30,20 @@ const Reports = () => {
   const { personalData } = useContext(PersonalDataContext);
   const [isSummenReport, setSummenReport] = useState(2);
 
-  const urlShift =
-    "http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Plan?$expand=stamm_id/fkLohnartID";
+  // const urlShift =
+  //   "http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Plan?$expand=stamm_id/fkLohnartID";
 
-  const shiftData = useFetch(urlShift);
+  // const shiftData = useFetch(urlShift);
 
   const initialState = {
     start: new Date().toISOString().slice(0, 10),
     end: new Date().toISOString().slice(0, 10),
   };
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state);
+
+  const urlShift = `http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Plan?$expand=stamm_id/fkLohnartID&$filter=starttime GE ${state.start} and starttime LE ${state.end}`;
+
+  const shiftData = useFetch(urlShift);
 
   return (
     <div className="wrapper">
@@ -57,7 +60,7 @@ const Reports = () => {
             return <Einzelnachweis />;
           }
         })()} */}
-        {isSummenReport === 1 ? (
+        {isSummenReport === 0 ? (
           <Einzelnachweis />
         ) : (
           <SummenReport personalData={personalData} shiftData={shiftData} />

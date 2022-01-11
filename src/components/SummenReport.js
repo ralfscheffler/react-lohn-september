@@ -21,16 +21,17 @@ const SummenReport = ({ personalData, shiftData }) => {
 
   return (
     <div className="container">
-      {personalShiftData.map((person) => {
-        //<div key={person.id}>
-        {
-          /* Name:
+      {personalShiftData.map((person) => (
+        <div key={person.id}>
+          Name:
           {person.Name} {person.Betrieb}
-          {console.log(person)} */
-        }
-
-        //</div>;
-      })}
+          {person.schicht.map((item) => (
+            <div>
+              <span>{item.starttime}</span>
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   );
   //console.log(personalShiftData);
