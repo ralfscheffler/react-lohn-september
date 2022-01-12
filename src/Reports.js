@@ -3,14 +3,23 @@ import { useReducer } from "react";
 import { useContext, useState } from "react";
 import ReportButtons from "./components/ReportButtons";
 import { PersonalDataContext } from "./contexts/PersonalDataContext";
-import useFetch from "./components/useFetch";
+
 import ReportZeitraum from "./components/ReportZeitraum";
-import SummenReport from "./components/SummenReport";
+//import SummenReport from "./components/SummenReport";
+import Summenliste from "./components/Summenliste";
+//import axios from "axios";
 
 // function SummenReport(props) {
 //   return <h1>Summenliste</h1>;
 // }
-
+// const getShiftPlan = async (url) => {
+//   const data = await axios.get(url);
+//   if (data.status === 200) {
+//     return data.data.value;
+//   } else {
+//     return null;
+//   }
+// };
 function Einzelnachweis(props) {
   return <h1>Einzelnachweis</h1>;
 }
@@ -28,22 +37,21 @@ function reducer(state, { type, payload }) {
 
 const Reports = () => {
   const { personalData } = useContext(PersonalDataContext);
-  const [isSummenReport, setSummenReport] = useState(2);
-
-  // const urlShift =
-  //   "http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Plan?$expand=stamm_id/fkLohnartID";
-
-  // const shiftData = useFetch(urlShift);
+  const [isSummenReport, setSummenReport] = useState(0);
 
   const initialState = {
     start: new Date().toISOString().slice(0, 10),
     end: new Date().toISOString().slice(0, 10),
   };
+  console.log(initialState.start);
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const urlShift = `http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Plan?$expand=stamm_id/fkLohnartID&$filter=starttime GE ${state.start} and starttime LE ${state.end}`;
+  //const urlShift = `http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Plan?$expand=stamm_id/fkLohnartID&$filter=starttime GE ${state.start} and starttime LE ${state.end}`;
 
-  const shiftData = useFetch(urlShift);
+  //const shiftData = useFetch(urlShift);
+  // const urlShift = `http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Plan?$expand=stamm_id/fkLohnartID&$filter=starttime GE ${state.start} and starttime LE ${state.end}`;
+
+  // const shiftData = getShiftPlan(urlShift);
 
   return (
     <div className="wrapper">
@@ -63,7 +71,7 @@ const Reports = () => {
         {isSummenReport === 0 ? (
           <Einzelnachweis />
         ) : (
-          <SummenReport personalData={personalData} shiftData={shiftData} />
+          <Summenliste start={state.start} end={state.end} />
         )}
       </div>
     </div>

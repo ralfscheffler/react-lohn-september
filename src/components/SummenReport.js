@@ -34,7 +34,6 @@ const SummenReport = ({ personalData, shiftData }) => {
       ))}
     </div>
   );
-  //console.log(personalShiftData);
 };
 
 export default SummenReport;
