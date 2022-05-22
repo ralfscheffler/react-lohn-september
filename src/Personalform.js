@@ -14,8 +14,8 @@ import PersonalZuschlag from "./components/PersonalZuschlag";
 import PersonalLohn from "./components/PersonalLohn";
 import PersonalButtons from "./components/PersonalButtons";
 import axios from "axios";
-
-
+import { useAtomValue } from "jotai/utils";
+import { locationAtom } from "./store/ContextStore";
 
 var i = 0;
 const initialValue = {
@@ -50,8 +50,8 @@ const Personalform = () => {
   const [enabled, setEnabled] = useState(false);
   const [edit, setEdit] = useState(false);
   const [prevPersonalData, setPrevPersonalData] = useState("");
-
-  const { firma } = useContext(LocationContext);
+  const firma = useAtomValue(locationAtom);
+  //const { firma } = useContext(LocationContext);
   const { updatePerson } = useContext(PersonalContext);
   const { updatePersonalData } = useContext(PersonalDataContext);
 
@@ -105,9 +105,11 @@ const Personalform = () => {
   };
   const handleDelete = async (e) => {
     e.preventDefault();
-    const data = await axios.get(`http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Plan?$expand=stamm_id&$filter=stamm_id EQ ${personal.id}`)
+    const data = await axios.get(
+      `http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Plan?$expand=stamm_id&$filter=stamm_id EQ ${personal.id}`
+    );
     console.log("Delete wurde geklickt.");
-    console.log(data)
+    console.log(data);
   };
   const handleEdit = (e) => {
     e.preventDefault();
@@ -171,6 +173,22 @@ const Personalform = () => {
       setPersonal(data[i]);
     }
   };
+
+  const handleNew = () => {
+    setPrevPersonalData(personal);
+    setPersonal(initialValue);
+    setReadonly(false);
+    setEnabled(true);
+    setEdit(true);
+  };
+
+  const handleCancel = () => {
+    setPersonal(prevPersonalData);
+    setEdit(!edit);
+    setEnabled(!enabled);
+    setReadonly(!readOnly);
+  };
+
   console.log("render");
   return (
     <>
@@ -206,6 +224,8 @@ const Personalform = () => {
           handleEdit={handleEdit}
           handleDelete={handleDelete}
           handleSubmit={handleSubmit}
+          handleNew={handleNew}
+          handleCancel={handleCancel}
         />
       )}
     </>
