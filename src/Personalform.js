@@ -7,15 +7,23 @@ import { LocationContext } from "./contexts/LocationContext";
 
 import Savetodb from "./components/Savetodb";
 import diff from "./components/diff";
-import { PersonalContext } from "./contexts/PersonalContext";
-import { PersonalDataContext } from "./contexts/PersonalDataContext";
+//import { PersonalContext } from "./contexts/PersonalContext";
+//import { PersonalDataContext } from "./contexts/PersonalDataContext";
 import PersonalBody from "./components/PersonalBody";
 import PersonalZuschlag from "./components/PersonalZuschlag";
 import PersonalLohn from "./components/PersonalLohn";
 import PersonalButtons from "./components/PersonalButtons";
 import axios from "axios";
-import { useAtomValue } from "jotai/utils";
-import { locationAtom } from "./store/ContextStore";
+import { useAtomValue, useUpdateAtom } from "jotai/utils";
+
+import {
+  locationAtom,
+  personalAtom,
+  personalDataAtom,
+  prevPersonalDataAtom,
+} from "./store/ContextStore";
+import { editAtom, enabledAtom, readOnlyAtom } from "./store/SettingsStore";
+import { useAtom } from "jotai";
 
 var i = 0;
 const initialValue = {
@@ -32,28 +40,33 @@ const initialValue = {
   fkLohnartID: { Festlohn: null, Stundenlohn: null, MaxStunden: null },
 };
 const Personalform = () => {
-  const [personal, setPersonal] = useState({
-    Name: "",
-    Vorname: "",
-    Strasse: "",
-    PLZ: "",
-    Ort: "",
-    Staatsangehoerigkeit: "",
-    Geburtsdatum: "",
-    Betrieb: "",
-    farbe: "",
-    fkJobsID: { minijob: null, fest: null, student: null, gleitzone: null },
-    fkLohnartID: { Festlohn: null, Stundenlohn: null, MaxStunden: null },
-  });
-
-  const [readOnly, setReadonly] = useState(true);
-  const [enabled, setEnabled] = useState(false);
-  const [edit, setEdit] = useState(false);
-  const [prevPersonalData, setPrevPersonalData] = useState("");
+  // const [personal, setPersonal] = useState({
+  //   Name: "",
+  //   Vorname: "",
+  //   Strasse: "",
+  //   PLZ: "",
+  //   Ort: "",
+  //   Staatsangehoerigkeit: "",
+  //   Geburtsdatum: "",
+  //   Betrieb: "",
+  //   farbe: "",
+  //   fkJobsID: { minijob: null, fest: null, student: null, gleitzone: null },
+  //   fkLohnartID: { Festlohn: null, Stundenlohn: null, MaxStunden: null },
+  // });
+  const [personal, setPersonal] = useAtom(personalAtom);
+  // const [readOnly, setReadonly] = useState(true);
+  // const [enabled, setEnabled] = useState(false);
+  // const [edit, setEdit] = useState(false);
+  const [readOnly, setReadonly] = useAtom(readOnlyAtom);
+  const [enabled, setEnabled] = useAtom(enabledAtom);
+  const [edit, setEdit] = useAtom(editAtom);
+  //const [prevPersonalData, setPrevPersonalData] = useState("");
+  const [prevPersonalData, setPrevPersonalData] = useAtom(prevPersonalDataAtom);
   const firma = useAtomValue(locationAtom);
   //const { firma } = useContext(LocationContext);
-  const { updatePerson } = useContext(PersonalContext);
-  const { updatePersonalData } = useContext(PersonalDataContext);
+  //const { updatePerson } = useContext(PersonalContext);
+  //const { updatePersonalData } = useContext(PersonalDataContext);
+  const updatePersonalData = useUpdateAtom(personalDataAtom);
 
   const url =
     "http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Mitarbeiter?$expand=fkJobsID,fkLohnartID&$filter=contains(Betrieb,  " +
@@ -69,7 +82,7 @@ const Personalform = () => {
 
   useEffect(() => {
     data && setPersonal(data[i]); //(i = 0)
-    data && updatePerson(data[i]);
+    //data && updatePerson(data[i]);
     data && updatePersonalData(data);
   }, [data]);
 
@@ -84,7 +97,7 @@ const Personalform = () => {
     }
     setPersonal(initialValue);
     setPersonal(data[i]);
-    updatePerson(data[i]);
+    //updatePerson(data[i]);
   };
 
   const handlePrev = (e) => {
@@ -100,7 +113,7 @@ const Personalform = () => {
     } else {
       setPersonal(initialValue);
       setPersonal(data[i]);
-      updatePerson(data[i]);
+      // updatePerson(data[i]);
     }
   };
   const handleDelete = async (e) => {

@@ -19,3 +19,4 @@ export const locationAtom = atom("");
 export const personalAtom = atom({});
 
 export const personalDataAtom = atom(initialValue);
+export const prevPersonalDataAtom = atom(initialValue);
