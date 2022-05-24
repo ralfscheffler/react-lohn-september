@@ -121,6 +121,16 @@ const Personalform = () => {
     const data = await axios.get(
       `http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Plan?$expand=stamm_id&$filter=stamm_id EQ ${personal.id}`
     );
+    data &&
+      data.data.value.map(async (item) => {
+        await axios.delete(
+          `http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Plan(${item.id})`
+        );
+      });
+    const res = await axios.delete(
+      `http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Mitarbeiter(${personal.id})`
+    );
+
     console.log("Delete wurde geklickt.");
     console.log(data);
   };
