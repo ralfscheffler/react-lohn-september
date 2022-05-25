@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-
+import { atomWithStorage } from "jotai/utils";
 const initialValue = {
   Name: "",
   Vorname: "",
@@ -16,7 +16,7 @@ const initialValue = {
 
 export const firmaAtom = atom([]);
 export const locationAtom = atom("");
-export const personalAtom = atom({});
+export const personalAtom = atomWithStorage("personal", {});
 
 export const personalDataAtom = atom(initialValue);
 export const prevPersonalDataAtom = atom(initialValue);

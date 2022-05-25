@@ -4,9 +4,13 @@ import "./index.css";
 import App from "./App";
 //import "../node_modules/bootstrap/dist/js/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { Provider } from "jotai";
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

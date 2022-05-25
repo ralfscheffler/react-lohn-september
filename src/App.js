@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import LocationContextProvider from "./contexts/LocationContext";
 import PersonalContextProvider from "./contexts/PersonalContext";
 import PersonalDataContextProvider from "./contexts/PersonalDataContext";
-import { Provider } from "jotai";
+
 function App() {
   return (
     <Router>
@@ -17,29 +17,27 @@ function App() {
         <LocationContextProvider>
           <PersonalContextProvider>
             <PersonalDataContextProvider>
-              <Provider>
-                <Navbar />
+              <Navbar />
 
-                <div className="content text-start">
-                  <p></p>
-                  <Switch>
-                    <Route exact path="/Personalform">
-                      <Personalform />
-                    </Route>
-                    <Route path="/Shiftplan">
-                      <Shiftplan />
-                    </Route>
-                    <Route path="/Reports">
-                      <Reports />
-                    </Route>
+              <div className="content text-start">
+                <p></p>
+                <Switch>
+                  <Route exact path="/Personalform">
+                    <Personalform />
+                  </Route>
+                  <Route path="/Shiftplan">
+                    <Shiftplan />
+                  </Route>
+                  <Route path="/Reports">
+                    <Reports />
+                  </Route>
 
-                    <Route path="/Einstellungen">
-                      <Einstellungen />
-                    </Route>
-                  </Switch>
-                  <p></p>
-                </div>
-              </Provider>
+                  <Route path="/Einstellungen">
+                    <Einstellungen />
+                  </Route>
+                </Switch>
+                <p></p>
+              </div>
             </PersonalDataContextProvider>
           </PersonalContextProvider>
         </LocationContextProvider>
