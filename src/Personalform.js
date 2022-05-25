@@ -24,6 +24,7 @@ import {
 } from "./store/ContextStore";
 import { editAtom, enabledAtom, readOnlyAtom } from "./store/SettingsStore";
 import { useAtom } from "jotai";
+import { urlAtom, userAtom } from "./store/QueryStore";
 
 var i = 0;
 const initialValue = {
@@ -67,6 +68,9 @@ const Personalform = () => {
   //const { updatePerson } = useContext(PersonalContext);
   //const { updatePersonalData } = useContext(PersonalDataContext);
   const updatePersonalData = useUpdateAtom(personalDataAtom);
+  const [, setUrl] = useAtom(urlAtom);
+
+  //setUrl(`http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Mitarbeiter`);
 
   const url =
     "http://scheffler-hardcore.de:2010/hardcore/dp/DP_T_Mitarbeiter?$expand=fkJobsID,fkLohnartID&$filter=contains(Betrieb,  " +
@@ -74,9 +78,15 @@ const Personalform = () => {
     firma +
     "'" +
     ")";
+
+  useEffect(() => {
+    setUrl(url);
+  }, []);
+  console.log(firma);
+  const [data] = useAtom(userAtom);
   //console.log(url);
 
-  const data = useFetch(url);
+  //const data = useFetch(url);
 
   //console.log(data);
 

@@ -1,9 +1,11 @@
 //mport { Button, Form, Col, Container, ButtonToolbar } from "react-bootstrap";
 //import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import ShiftFooter from "./ShiftFooter";
 import UpdateShiftPlan from "./UpdateShiftPlan";
 import "../css/ShiftFooter.css";
+import { shiftAtom } from "../store/ContextStore";
+import { useAtom } from "jotai";
 
 const getDayName = (datestr, locale) => {
   var date = new Date(datestr);
@@ -16,7 +18,8 @@ const getDayName = (datestr, locale) => {
 // };
 
 const ShiftBody = ({ data, person }) => {
-  const [shift, setShift] = useState([]);
+  //const [shift, setShift] = useState([]);
+  const [shift, setShift] = useAtom(shiftAtom);
   let shiftForm = [];
 
   data.map((item) => {

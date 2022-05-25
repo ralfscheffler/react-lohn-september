@@ -8,7 +8,7 @@ import { LocationContext } from "./contexts/LocationContext";
 import { useAtom } from "jotai";
 import { firmaAtom, locationAtom } from "./store/ContextStore";
 //import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { Suspense } from "react";
 //const router = useRouter();
 function Switchtab(e) {
   const tabs = document.getElementsByClassName("tablink");
@@ -44,17 +44,19 @@ const Navbar = () => {
 
   return (
     <div className="w3-bar w3-black">
-      <Link to={{ pathname: "/Personalform" }}>
-        <button
-          id="pers"
-          className="w3-bar-item w3-button tablink w3-red"
-          onClick={(e) => {
-            Switchtab(e);
-          }}
-        >
-          Personal Verwaltung
-        </button>
-      </Link>
+      <Suspense fallback={<h1>Loading profile...</h1>}>
+        <Link to={{ pathname: "/Personalform" }}>
+          <button
+            id="pers"
+            className="w3-bar-item w3-button tablink w3-red"
+            onClick={(e) => {
+              Switchtab(e);
+            }}
+          >
+            Personal Verwaltung
+          </button>
+        </Link>
+      </Suspense>
       <Link to="/Shiftplan">
         <button
           id="stdf"

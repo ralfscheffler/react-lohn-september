@@ -20,3 +20,4 @@ export const personalAtom = atomWithStorage("personal", {});
 
 export const personalDataAtom = atom(initialValue);
 export const prevPersonalDataAtom = atom(initialValue);
+export const shiftAtom = atom([]);
